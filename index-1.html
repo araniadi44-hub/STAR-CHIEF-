@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Utama - SUPER SPACE INVADERS</title>
+    <style>
+        /* (SEMUA CSS DARI KODE SEBELUMNYA DI SINI) */
+        /* Pastikan semua CSS latar belakang, judul, dan tombol ada di sini */
+        
+        /* ================================== */
+        /* CSS KHUSUS LOADING SCREEN */
+        /* ================================== */
+
+        /* Overlay Hitam untuk Loading */
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9); /* Hitam transparan */
+            display: none; /* Awalnya tersembunyi */
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999; /* Pastikan di atas semua elemen lain */
+        }
+
+        /* Spinner Loading (Animasi Pemutar) */
+        .spinner {
+            border: 8px solid rgba(255, 255, 255, 0.3);
+            border-top: 8px solid #ff6600; /* Warna Oranye dari tema game */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite; /* Animasi berputar */
+        }
+
+        /* Teks Loading */
+        .loading-text {
+            color: white;
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        /* Animasi Berputar */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* (JANGAN LUPA: Tambahkan juga semua CSS sebelumnya di sini!) */
+
+        /* ================================== */
+        /* CSS UMUM & LATAR BELAKANG BINTANG */
+        /* (Diulang di sini agar kode lengkap dan berfungsi) */
+        /* ... (Masukkan semua CSS dari respons sebelumnya di sini) ... */
+        body { margin: 0; height: 100vh; width: 100vw; background-color: #000; overflow: hidden; display: flex; justify-content: center; align-items: center; color: white; font-family: 'Arial', sans-serif; }
+        .stars-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .star { height: 2px; width: 2px; background: transparent; position: absolute; top: 0; left: 0; box-shadow: 20px 100px #fff, 150px 300px #fff, 300px 50px #fff, 450px 450px #fff, 600px 150px #fff, 750px 350px #fff, 900px 50px #fff, 50px 550px #fff, 250px 700px #fff, 400px 900px #fff, 700px 250px #fff, 950px 800px #fff, 100px 200px #eee, 350px 750px #eee, 500px 100px #eee, 800px 600px #eee, 40px 650px 1px 1px #fff, 650px 50px 1px 1px #fff; }
+        .game-title { position: relative; z-index: 10; text-align: center; }
+        .super { font-size: 5em; background: linear-gradient(90deg, #ff9900 0%, #ff9900 20%, #ffff00 20%, #ffff00 40%, #00ff00 40%, #00ff00 60%, #0000ff 60%, #0000ff 80%, #ff0000 80%, #ff0000 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold; }
+        .space-invaders { font-family: 'Times New Roman', serif; font-size: 3.5em; color: #ff0000; text-shadow: 0 0 10px #ff0000, 0 0 5px #ff4444; font-weight: 900; margin-top: -30px; }
+        .button-group { margin-top: 40px; display: flex; justify-content: center; align-items: center; gap: 50px; }
+        .icon-button { width: 80px; height: 80px; background-color: #ff6600; border-radius: 15px; box-shadow: 0 0 10px rgba(255, 102, 0, 0.6); display: flex; justify-content: center; align-items: center; color: white; font-size: 2em; cursor: pointer; transition: transform 0.2s; }
+        .corner-button { position: absolute; z-index: 20; width: 60px; height: 60px; background-color: #ff6600; border-radius: 10px; box-shadow: 0 0 8px rgba(255, 102, 0, 0.6); display: flex; justify-content: center; align-items: center; font-size: 1.5em; text-decoration: none; }
+        .corner-button.logo { top: 20px; left: 20px; color: yellow; }
+        .corner-button.lang { top: 20px; right: 20px; }
+        .play-button { display: inline-block; width: 120px; height: 120px; background-color: #ff6600; border-radius: 25px; box-shadow: 0 0 20px rgba(255, 102, 0, 0.8), 0 5px 15px rgba(0, 0, 0, 0.5); transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; position: relative; text-decoration: none; }
+        .play-button:hover, .icon-button:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 102, 0, 1), 0 8px 20px rgba(0, 0, 0, 0.6); }
+        .play-icon { position: absolute; top: 50%; left: 55%; transform: translate(-50%, -50%); width: 0; height: 0; border-top: 25px solid transparent; border-bottom: 25px solid transparent; border-left: 45px solid white; }
+        .footer-link { position: absolute; bottom: 20px; z-index: 10; text-decoration: none; padding: 8px 15px; border-radius: 5px; font-weight: bold; font-size: 0.9em; transition: background-color 0.3s; }
+        .share-button { right: 150px; background-color: #28a745; color: white; }
+        .share-button:hover { background-color: #1e7e34; }
+        .privacy-button { right: 20px; background-color: #555; color: white; }
+        .privacy-button:hover { background-color: #333; }
+        /* ... (Akhir CSS sebelumnya) ... */
+    </style>
+</head>
+<body>
+
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <div class="loading-text">MEMUAT GAME... SIAPKAN ROKET ANDA!</div>
+    </div>
+
+
+    <div class="stars-background">
+        <div class="star"></div>
+    </div>
+
+    <a href="#" class="corner-button logo">🕹️</a>
+    <a href="#" class="corner-button lang">🇬🇧</a>
+
+    <div class="game-title">
+        
+        <div class="super">SUPER</div>
+        <div class="space-invaders">SPACE INVADERS</div>
+
+        <div class="button-group">
+            
+            <div class="icon-button">🚀</div>
+
+            <a href="#" id="playButton" class="play-button" title="Mulai Permainan">
+                <div class="play-icon"></div>
+            </a>
+            
+            <div class="icon-button">⚙️</div>
+        </div>
+    </div>
+
+    <a href="URL_SHARE_GAME" class="footer-link share-button" target="_blank">
+        Bagikan Game 📢
+    </a>
+    
+    <a href="URL_PRIVACY_POLICY" class="footer-link privacy-button" target="_blank">
+        Privacy
+    </a>
+
+    <script>
+        document.getElementById('playButton').addEventListener('click', function(event) {
+            // Mencegah navigasi langsung (penting untuk menampilkan loading)
+            event.preventDefault(); 
+            
+            // 1. Tampilkan overlay loading
+            document.getElementById('loading-overlay').style.display = 'flex';
+            
+            // 2. Simulasi proses loading (misalnya 3 detik)
+            // Di sini Anda akan benar-benar memuat aset game Anda
+            setTimeout(function() {
+                // 3. Setelah waktu habis, pindah ke halaman game
+                // Ganti 'URL_GAME_PLAY' dengan link game yang sebenarnya!
+                window.location.href = 'URL_GAME_PLAY'; 
+                
+            }, 3000); // Tampil selama 3000 milidetik (3 detik)
+        });
+    </script>
+</body>
+</html>
